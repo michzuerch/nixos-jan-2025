@@ -2,7 +2,6 @@
   description = "nixos-config michzuerch@gmail.com Januar 2025";
 
   inputs = {
-
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
 
     home-manager = {
@@ -19,9 +18,14 @@
     #};
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: let
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    ...
+  } @ inputs: let
     system = "x86_64-linux";
-    systems = [ "x86_64-linux" ];
+    systems = ["x86_64-linux"];
     homeStateVersion = "24.11";
 
     pkgs = import nixpkgs {
@@ -29,35 +33,51 @@
       config.allowUnfree = true;
     };
     lib = nixpkgs.lib;
-    forEachSystem =  f: lib.genAttrs systems ( system: f pkgsFor.${system});
+    forEachSystem = f: lib.genAttrs systems (system: f pkgsFor.${system});
 
     pkgsFor = lib.genAttrs systems (system: import nixpkgs {inherit system;});
 
     user = "michzuerch";
     hosts = [
-      { hostname = "thinkpadnomad"; stateVersion = "24.11"; }
-      { hostname = "slim3"; stateVersion = "24.05"; }
-      { hostname = "330-15ARR"; stateVersion = "24.11"; }
+      {
+        hostname = "thinkpadnomad";
+        stateVersion = "24.11";
+      }
+      {
+        hostname = "slim3";
+        stateVersion = "24.05";
+      }
+      {
+        hostname = "330-15ARR";
+        stateVersion = "24.11";
+      }
     ];
 
-    makeSystem = { hostname, stateVersion }: nixpkgs.lib.nixosSystem {
-      system = system;
-      specialArgs = {
-        inherit inputs stateVersion hostname user;
+    makeSystem = {
+      hostname,
+      stateVersion,
+    }:
+      nixpkgs.lib.nixosSystem {
+        system = system;
+        specialArgs = {
+          inherit inputs stateVersion hostname user;
+        };
+
+        modules = [
+          ./hosts/${hostname}/configuration.nix
+        ];
       };
-
-      modules = [
-        ./hosts/${hostname}/configuration.nix
-      ];
-    };
-
   in {
+    formatter = forEachSystem (pkgs: pkgs.alejandra);
+
     nixosConfigurations = nixpkgs.lib.foldl' (configs: host:
-      configs // {
+      configs
+      // {
         "${host.hostname}" = makeSystem {
           inherit (host) hostname stateVersion;
         };
-      }) {} hosts;
+      }) {}
+    hosts;
 
     homeConfigurations.${user} = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.${system};
