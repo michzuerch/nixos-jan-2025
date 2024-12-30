@@ -1,8 +1,10 @@
 {
-  environment.variables = {
+  environment.sessionVariables = rec {
+    TERMINAL = "alacritty";
     EDITOR = "nvim";
-    RANGER_LOAD_DEFAULT_RC = "FALSE";
-    QT_QPA_PLATFORMTHEME = "qt5ct";
-    GSETTINGS_BACKEND = "keyfile";
+    XDG_BIN_HOME = "$HOME/.local/bin";
+    PATH = [
+      "${XDG_BIN_HOME}"
+    ];
   };
 }

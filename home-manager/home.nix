@@ -1,13 +1,12 @@
-{
-
+{ homeStateVersion, user, ... }: {
   imports = [
-    ./zsh.nix
-    ./modules/bundle.nix
+    ./modules
+    ./home-packages.nix
   ];
 
   home = {
-    username = "amper";
-    homeDirectory = "/home/amper";
-    stateVersion = "23.11";
+    username = user;
+    homeDirectory = "/home/${user}";
+    stateVersion = homeStateVersion;
   };
 }
