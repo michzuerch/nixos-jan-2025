@@ -1,5 +1,5 @@
 {
-  description = "My system configuration";
+  description = "nixos-config michzuerch@gmail.com Januar 2025";
 
   inputs = {
 
@@ -21,9 +21,21 @@
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: let
     system = "x86_64-linux";
+    systems = [ "x86_64-linux" ];
     homeStateVersion = "24.11";
-    user = "amper";
+
+    pkgs = import nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
+    };
+    lib = nixpkgs.lib;
+    forEachSystem =  f: lib.genAttrs systems ( system: f pkgsFor.${system});
+
+    pkgsFor = lib.genAttrs systems (system: import nixpkgs {inherit system;});
+
+    user = "michzuerch";
     hosts = [
+      { hostname = "thinkpadnomad"; stateVersion = "24.11"; }
       { hostname = "slim3"; stateVersion = "24.05"; }
       { hostname = "330-15ARR"; stateVersion = "24.11"; }
     ];
