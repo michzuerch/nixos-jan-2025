@@ -25,17 +25,7 @@
     ...
   } @ inputs: let
     system = "x86_64-linux";
-    systems = ["x86_64-linux"];
     homeStateVersion = "24.11";
-
-    pkgs = import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-    };
-    lib = nixpkgs.lib;
-    forEachSystem = f: lib.genAttrs systems (system: f pkgsFor.${system});
-
-    pkgsFor = lib.genAttrs systems (system: import nixpkgs {inherit system;});
 
     user = "michzuerch";
     hosts = [
@@ -68,7 +58,7 @@
         ];
       };
   in {
-    formatter = forEachSystem (pkgs: pkgs.alejandra);
+    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
 
     nixosConfigurations = nixpkgs.lib.foldl' (configs: host:
       configs
