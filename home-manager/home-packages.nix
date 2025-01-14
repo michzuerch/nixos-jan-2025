@@ -9,6 +9,7 @@
     mpv
     obs-studio
     obsidian
+    prismlauncher-unwrapped
     teams-for-linux
     telegram-desktop
     vesktop

@@ -84,3 +84,17 @@ To get started with this setup, follow these steps:
 
 Feel free to fork the repository and submit pull requests if you'd like to contribute improvements. Open issues if you encounter any problems with the config or have ideas for new features.
 
+## Disko
+
+### run disko:
+
+sudo nix \
+  --experimental-features "nix-command flakes" \
+  run github:nix-community/disko -- \
+  --mode disko /tmp/disko-config.nix
+
+### install nixos
+
+nixos-rebuild switch --flake ./#<hostname>
+# or nixos-install --flake ./#<hostname> if you are installing on a fresh system
+home-manager switch
