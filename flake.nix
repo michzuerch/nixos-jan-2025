@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    #nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
       # url = "github:nix-community/home-manager";
@@ -11,6 +12,11 @@
     };
 
     stylix.url = "github:danth/stylix";
+
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # COMING SOON...
     #nixvim = {
@@ -23,6 +29,7 @@
     self,
     nixpkgs,
     home-manager,
+    disko,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -56,6 +63,7 @@
 
         modules = [
           ./hosts/${hostname}/configuration.nix
+          disko.nixosModules.disko
         ];
       };
   in {

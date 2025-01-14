@@ -11,6 +11,7 @@
     ./nh.nix
     ./nix.nix
     ./timezone.nix
+    ./locale.nix
     ./user.nix
     ./zram.nix
   ];

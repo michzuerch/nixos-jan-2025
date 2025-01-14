@@ -5,6 +5,7 @@
   ...
 }: {
   imports = [
+    ./disko.nix
     ./hardware-configuration.nix
     ./local-packages.nix
     ../../nixos/modules
