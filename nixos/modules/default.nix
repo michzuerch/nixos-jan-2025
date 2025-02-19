@@ -10,6 +10,7 @@
     ./net.nix
     ./nh.nix
     ./nix.nix
+    ./kernel.nix
     ./timezone.nix
     ./locale.nix
     ./user.nix

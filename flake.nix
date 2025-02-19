@@ -2,8 +2,8 @@
   description = "nixos-config michzuerch@gmail.com Januar 2025";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
-    #nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    #nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
       # url = "github:nix-community/home-manager";
@@ -33,21 +33,25 @@
     ...
   } @ inputs: let
     system = "x86_64-linux";
-    homeStateVersion = "24.11";
+    homeStateVersion = "25.05";
 
     user = "michzuerch";
     hosts = [
       {
+        hostname = "vm";
+        stateVersion = "25.05";
+      }
+      {
         hostname = "thinkpadnomad";
-        stateVersion = "24.11";
+        stateVersion = "25.05";
       }
       {
         hostname = "slim3";
-        stateVersion = "24.11";
+        stateVersion = "25.05";
       }
       {
         hostname = "330-15ARR";
-        stateVersion = "24.11";
+        stateVersion = "25.05";
       }
     ];
 
