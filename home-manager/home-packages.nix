@@ -9,6 +9,7 @@
     mpv
     obs-studio
     obsidian
+    pavucontrol
     prismlauncher-unwrapped
     teams-for-linux
     telegram-desktop
@@ -24,6 +25,7 @@
     git-graph
     grimblast
     htop
+    ntfs3g
     mediainfo
     microfetch
     playerctl
