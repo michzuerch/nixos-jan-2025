@@ -1,9 +1,9 @@
-{
+{lib, ...}: {
   disko.devices = {
     disk = {
       nixos = {
         type = "disk";
-        device = "/dev/vda";
+        device = lib.mkDefault "/dev/vda";
         content = {
           type = "gpt";
           partitions = {
