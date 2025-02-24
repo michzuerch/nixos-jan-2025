@@ -6,7 +6,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-      # url = "github:nix-community/home-manager";
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -15,6 +14,16 @@
 
     disko = {
       url = "github:nix-community/disko/latest";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -34,6 +43,7 @@
     nixpkgs,
     home-manager,
     disko,
+    sops-nix,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -72,6 +82,8 @@
         modules = [
           ./hosts/${hostname}/configuration.nix
           disko.nixosModules.disko
+          home-manager.nixosModules.home-manager
+          sops-nix.nixosModules.sops
         ];
       };
   in {
@@ -86,7 +98,8 @@
       }) {}
     hosts;
 
-    homeConfigurations.${user} = home-manager.lib.homeManagerConfiguration {
+    /*
+       homeConfigurations.${user} = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.${system};
       extraSpecialArgs = {
         inherit inputs homeStateVersion user;
@@ -96,5 +109,6 @@
         ./home-manager/home.nix
       ];
     };
+    */
   };
 }
