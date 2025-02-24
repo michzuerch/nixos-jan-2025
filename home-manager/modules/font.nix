@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  home.fonts = with pkgs; [
+  home.packages = with pkgs; [
     dejavu_fonts
     jetbrains-mono
     noto-fonts
@@ -7,6 +7,7 @@
     font-awesome
     powerline-fonts
     powerline-symbols
+    nerdfonts.jetbrains-mono
     nerdfonts.NerdFontsSymbolsOnly
   ];
 }
