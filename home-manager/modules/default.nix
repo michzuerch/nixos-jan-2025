@@ -4,6 +4,7 @@
     ./bat.nix
     ./chromium.nix
     ./eza.nix
+    ./font.nix
     ./git.nix
     ./hyprland
     ./lazygit.nix
