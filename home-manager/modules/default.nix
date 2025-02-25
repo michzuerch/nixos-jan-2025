@@ -11,6 +11,7 @@
     ./neovim.nix
     ./obsidian.nix
     ./ranger.nix
+    ./rust.nix
     ./starship.nix
     ./stylix.nix
     ./swaync
